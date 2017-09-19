@@ -5,3 +5,7 @@ Aplicativo Utilizando o Google Places
 ## WebDev
 
 ### Eduardo Silva Rocha
+
+
+*Fontes para Estudos
+> https://github.com/FaridSafi/react-native-google-places-autocomplete
