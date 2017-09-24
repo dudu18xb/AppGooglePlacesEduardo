@@ -88,14 +88,14 @@ class Finder extends Component {
     loadImg = (item) => {
         if (item != null && item.photos != null) {
             return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + item.photos[0].photo_reference + "&key=" + this.state.key
-        } else return "http://static1.1.sqspcdn.com/static/f/1154581/21791306/1359568048283/Poppy404d.png";
+        } else return "https://egyptianstreets.com/wp-content/uploads/2017/07/404.jpg";
     }
 
     loadMap = (item) => {
         if (item != null && item.geometry != null && item.geometry.location != null) {
             let path = "path=color:0x0000ff|weight:5|" + this.state.location + "|" + item.geometry.location.lat + "," + item.geometry.location.lng
             return "https://maps.googleapis.com/maps/api/staticmap?markers=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&" + path + "&size=600x300&key=" + this.state.key
-        } else return "http://static1.1.sqspcdn.com/static/f/1154581/21791306/1359568048283/Poppy404d.png";
+        } else return "https://egyptianstreets.com/wp-content/uploads/2017/07/404.jpg";
     }
 
 
