@@ -26,6 +26,7 @@ import{
 } from 'native-base';
 import axios from 'axios';
 import ListScreen from './screens/Finder';
+import { Dialog } from 'react-native-simple-dialogs';
 
 const KEY_GOOGLE = "AIzaSyD1z7ENUOr6O2QhY-DWrZbT4A6n_4OfdPw"; // <- Chave API GOOGLE Eduardo
 
@@ -51,7 +52,7 @@ locationError = (error) => {
 
   render() {
       <Container>
-        <Header>
+        <Header searchBar rounded style={{ backgroundColor: '#840217' }}>
           <Item>
             <Icon color='#38345c' name='map' />
             <Input placeholder="Buscar"
@@ -60,7 +61,7 @@ locationError = (error) => {
                                 onSubmitEditing={this.EfetuarBuscarMapa}
                                 value={this.state.buscar}
                                 onChangeText={(buscar) => this.setState({ buscar })} />
-            <Button onPress={this.EfetuarBuscarMapa}></Button>
+            <Button onPress={this.EfetuarBuscarMapa}><Icon  name="ios-search" /></Button>
           </Item>
         </Header>
       </Container>
@@ -105,6 +106,48 @@ EfetuarBuscarMapa = () => {
            });
    }
 }
+renderItem = (item) => {
+       if (item.formatted_address != undefined) {
+           if (item.photos != undefined) {
+               return (
+                   <ListItem onPress={this.pressList}>
+                       <Thumbnail square size={100} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=110&photoreference=' + item.photos[0].photo_reference + '&key=AIzaSyD1z7ENUOr6O2QhY-DWrZbT4A6n_4OfdPw' }} />
+                       <Body>
+                           <Text>{item.name}</Text>
+                           <Text note> {item.formatted_address}</Text>
+                       </Body>
+                   </ListItem>
+               )
+           }
+           return (
+               <ListItem onPress={this.pressList}>
+                   <Body>
+                       <Text>{item.name}</Text>
+                       <Text note> {item.formatted_address}</Text>
+                   </Body>
+               </ListItem>
+           )
+       } else {
+           if (item.photos != undefined) {
+               return (
+                   <ListItem onPress={this.pressList}>
+                       <Thumbnail square size={100} source={{ uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=110&photoreference=' + item.photos[0].photo_reference + '&key=AIzaSyD1z7ENUOr6O2QhY-DWrZbT4A6n_4OfdPw' }} />
+                       <Body>
+                           <Text>{item.name}</Text>
+                           <Text note> {item.vicinity}</Text>
+                       </Body>
+                   </ListItem>
+               )}
+           return (
+               <ListItem onPress={this.pressList}>
+                   <Body>
+                       <Text>{item.name}</Text>
+                       <Text note> {item.vicinity}</Text>
+                   </Body>
+               </ListItem>
+           )
+       }
+   }
 
 const styles = StyleSheet.create({
   container: {
