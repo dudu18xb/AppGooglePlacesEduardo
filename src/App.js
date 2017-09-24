@@ -24,7 +24,7 @@ import{
   Toast,
   Spinner
 } from 'native-base';
-
+import axios from 'axios';
 import ListScreen from './screens/Finder';
 
 const KEY_GOOGLE = "AIzaSyD1z7ENUOr6O2QhY-DWrZbT4A6n_4OfdPw"; // <- Chave API GOOGLE Eduardo
@@ -60,7 +60,7 @@ locationError = (error) => {
                                 onSubmitEditing={this.EfetuarBuscarMapa}
                                 value={this.state.buscar}
                                 onChangeText={(buscar) => this.setState({ buscar })} />
-            <Button onPress={this.EfetuarBuscarMapa}><Button.
+            <Button onPress={this.EfetuarBuscarMapa}></Button>
           </Item>
         </Header>
       </Container>
@@ -82,6 +82,28 @@ EfetuarBuscarMapa = () => {
         url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + this.state.latitude + ',' + this.state.longitude + '&rankby=distance&key=' + KEY_GOOGLE
 
     }
+    axios.get(url)
+           .then((response) => {
+               if (response.data.results != undefined) {
+                   list = response.data.results
+               } else {
+                   erro = "Local Não Encontrado"
+                   dialogVisible = true
+               }
+           })
+           .catch((error) => {
+               erro = "Vetifique sua internet"
+               dialogVisible = true
+           })
+           .finally(() => {
+               this.setState({
+                   load: false,
+                   erro: erro,
+                   lista: list,
+                   dialogVisible: dialogVisible
+               })
+           });
+   }
 }
 
 const styles = StyleSheet.create({
