@@ -64,6 +64,9 @@ locationError = (error) => {
             <Button onPress={this.EfetuarBuscarMapa}><Icon  name="ios-search" /></Button>
           </Item>
         </Header>
+        <Content>
+            {this.renderContent()}
+        </Content>
       </Container>
     );
   }
@@ -149,18 +152,17 @@ renderItem = (item) => {
        }
    }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+   renderContent = () => {
+     if (this.state.load) {
+            return (
+                <Spinner color='#006099' />
+            )}
+     if (this.state.lista) {
+            return (
+                <List dataArray={this.state.lista}
+                    renderRow={this.renderItem}/>
+            )}
+}
+
 
 AppRegistry.registerComponent('AppGooglePlacesEduardo', () => App);
