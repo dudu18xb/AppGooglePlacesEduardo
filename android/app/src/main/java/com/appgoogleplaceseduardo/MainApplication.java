@@ -1,4 +1,4 @@
-package com.trabalho;
+package com.appgoogleplaceseduardo;
 
 import android.app.Application;
 
