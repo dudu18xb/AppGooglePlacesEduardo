@@ -37,12 +37,33 @@ export default class App extends Component {
     };
     navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError, config);
 }
+locationSuccess = (position) => { // quando a localização é obtida
+    this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+    })
+    this.EfetuarBuscarMapa()
+}
+// se por acaso obter algum tipo de erro
+locationError = (error) => {
+    console.warn(error);
+}
 
   render() {
-    return (
-      <View style={styles.container}>
-        <ListScreen />
-      </View>
+      <Container>
+        <Header>
+          <Item>
+            <Icon color='#38345c' name='map' />
+            <Input placeholder="Buscar"
+                                returnKeyLabel='search'
+                                returnKeyType='search'
+                                onSubmitEditing={this.EfetuarBuscarMapa}
+                                value={this.state.buscar}
+                                onChangeText={(buscar) => this.setState({ buscar })} />
+            <Button onPress={this.EfetuarBuscarMapa}><Button.
+          </Item>
+        </Header>
+      </Container>
     );
   }
 }
